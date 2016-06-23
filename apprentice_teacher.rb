@@ -1,23 +1,24 @@
-class ApprenticeTeacher
-  attr_reader :age, :salary, :phase, :target_raise
-  attr_accessor :name
+require_relative 'teacher'
+
+
+class ApprenticeTeacher < Teacher
+  # no attrs needed...right? everything inher from teacher
+
+  PERFORMANCE_RATING = 80   #supposed to name var perf rating  
+                              #for rspec test?
+  TARGET_RAISE = 800
+  PHASE = 3
 
   def initialize(options={})
-    @age = options.fetch(:age, 0)
-    @name = options.fetch(:name, "")
-    @target_raise = 800
-    @phase = 3
+    super
+
+    # @target_raise = 1000  #after super, it doesn't default to 1000? have to set constance var or ... ?   OR need to comment out target raise in attr on teacher file?
+
+    @phase = self.class::PHASE
+    @target_raise = self.class::TARGET_RAISE
   end
 
-  def offer_high_five
-    "High five!"
-  end
-
-  def set_phase(num)
-    @phase = num
-    "Cool, I've always wanted to teach phase #{num}!"
-  end
-
+#probably could interpolate the few diffs from this and teachers
   def teach_stuff
     response = ""
     response += "Listen, class, this is how everything works. "
@@ -26,25 +27,6 @@ class ApprenticeTeacher
     response
   end
 
-  def salary=(new_salary)
-    puts "This better be good!"
-    @salary = new_salary
-  end
-
-  def receive_raise(raise)
-    @salary += raise
-  end
-
-  def set_performance_rating(rating)
-    response = ""
-    if rating > 80
-      response = "Yay, I'm a great employee!"
-      receive_raise(@target_raise)
-    else
-      response = "Oh, well -- thanks to this actionable, specific, and kind feedback, I'll do better next time."
-    end
-    response
-  end
 
   def attend_training_session
     puts "Whoa. I know ruby-fu"

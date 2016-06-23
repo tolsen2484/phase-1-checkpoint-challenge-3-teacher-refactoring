@@ -1,16 +1,17 @@
-class Teacher
-  attr_reader :age, :salary, :phase, :performance_rating, :target_raise
-  attr_accessor :name
+require_relative 'devbootcamper'
+
+
+class Teacher < Devbootcamper
+  attr_reader :age, :phase, :performance_rating #:target_raise
+  attr_accessor :name, :salary, :target_raise
+
+  PERFORMANCE_RATING = 90
+  # TARGET_RAISE = 1000  #set self on this too since i did for app teacher?
 
   def initialize(options={})
+    super
     @phase = 3
-    @age = options.fetch(:age, 0)
-    @name = options.fetch(:name, "")
     @target_raise = 1000
-  end
-
-  def offer_high_five
-    "High five!"
   end
 
   def set_phase(num)
@@ -24,6 +25,7 @@ class Teacher
     response += "*drops flat-out insane knowledge bomb* "
     response += "... You're welcome. *saunters away*"
     response
+    #use a string <--- thingy? to eliminate all the responses?
   end
 
   def salary=(new_salary)
@@ -37,7 +39,7 @@ class Teacher
 
   def set_performance_rating(rating)
     response = ""
-    if rating > 90
+    if rating > self.class::PERFORMANCE_RATING
       receive_raise(@target_raise)
       response = "Yay, I'm a great employee!"
     else
