@@ -1,7 +1,7 @@
 
 class Devbootcamper
 
-	attr_accessor :age, :name, :phase  #is attr right?
+	attr_accessor :age, :name, :phase 
 
 	def initialize(options = {})
     	@age = options.fetch(:age, 0)

@@ -2,17 +2,20 @@ require_relative 'devbootcamper'
 
 
 class Teacher < Devbootcamper
-  attr_reader :age, :phase, :performance_rating #:target_raise
-  attr_accessor :name, :salary, :target_raise
+  attr_reader :salary, :target_raise, :rating, :performance_rating 
 
-  PERFORMANCE_RATING = 90
+  # RATING = 90
   # TARGET_RAISE = 1000  #set self on this too since i did for app teacher?
 
   def initialize(options={})
     super
-    @phase = 3
-    @target_raise = 1000
+    
+    @rating = 90
+    @target_raise = 1000 #self.class::TARGET_RAISE
+    @placeholder = {p1: "flat-out insane", p2: ", fo SHO!", p3: " *saunters away*"}
   end
+
+
 
   def set_phase(num)
     @phase = num
@@ -21,9 +24,9 @@ class Teacher < Devbootcamper
 
   def teach_stuff
     response = ""
-    response += "Listen, class, this is how everything works, fo SHO! "
-    response += "*drops flat-out insane knowledge bomb* "
-    response += "... You're welcome. *saunters away*"
+    response += "Listen, class, this is how everything works#{@placeholder[:p2]} "
+    response += "*drops #{@placeholder[:p1]} knowledge bomb* "
+    response += "... You're welcome.#{@placeholder[:p3]}"
     response
     #use a string <--- thingy? to eliminate all the responses?
   end
@@ -39,7 +42,7 @@ class Teacher < Devbootcamper
 
   def set_performance_rating(rating)
     response = ""
-    if rating > self.class::PERFORMANCE_RATING
+    if rating > @rating     #self.class::RATING
       receive_raise(@target_raise)
       response = "Yay, I'm a great employee!"
     else
@@ -49,3 +52,4 @@ class Teacher < Devbootcamper
     response
   end
 end
+
